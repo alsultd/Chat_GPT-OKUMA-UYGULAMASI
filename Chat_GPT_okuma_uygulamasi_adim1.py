@@ -13,8 +13,9 @@ import speech_recognition as sr
 
 import nltk
 nltk.download('punkt', download_dir='/tmp')
-nltk.data.path.append('/tmp')
+nltk.data.path.append('/tmp')  # Bu satır indirmeden sonra değil, önce gelirse işe yaramaz
 from nltk.tokenize import sent_tokenize
+
 
 
 # === Ayarlar ===
