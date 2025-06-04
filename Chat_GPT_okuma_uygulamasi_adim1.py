@@ -69,8 +69,8 @@ def mikrofondan_al(sure=45):
             if platform.system() == "Windows":
                 import winsound
                 winsound.Beep(1000, 500)
-        else:
-            st.info("🔔 (Mobil veya desteklenmeyen platform)")
+            else:
+                st.info("🔔 (Mobil veya desteklenmeyen platform)")
     except Exception as e:
         st.info(f"🔕 Bip sesi çalınamadı ({e})")
 
