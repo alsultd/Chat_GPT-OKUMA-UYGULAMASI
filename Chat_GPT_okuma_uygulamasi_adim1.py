@@ -5,14 +5,12 @@ import uuid
 import os
 import difflib
 import time
-import winsound
+import platform
 from docx import Document
 from deep_translator import GoogleTranslator
 from gtts import gTTS
 import speech_recognition as sr
 import nltk
-import platform
-
 
 nltk.download('punkt')
 from nltk.tokenize import sent_tokenize
@@ -66,15 +64,18 @@ def mikrofondan_al(sure=45):
     with sr.Microphone() as source:
         st.info("🎙️ Hazırlanın, 3 saniye içinde bip sesi gelecek...")
         time.sleep(3)
-        #winsound.Beep(1000, 500)
-        if platform.system() == "Windows":
+#------------------------------------------
+        try:
+            if platform.system() == "Windows":
             import winsound
             winsound.Beep(1000, 500)
         else:
-            st.info("🔔 (Mobil sürümde bip sesi desteklenmez)")
+            st.info("🔔 (Mobil veya desteklenmeyen platform)")
+    except Exception as e:
+        st.info(f"🔕 Bip sesi çalınamadı ({e})")
 
+#----------------------------------------------------------------
         st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
-        # sessizliği tolere etmesi için ayar
         r.pause_threshold = 1.5
         r.non_speaking_duration = 1.0
         audio = r.listen(source, phrase_time_limit=sure)
