@@ -10,11 +10,12 @@ from docx import Document
 from deep_translator import GoogleTranslator
 from gtts import gTTS
 import speech_recognition as sr
-import nltk
 
-nltk.download('punkt', download_dir='/tmp/nltk_data')
-nltk.data.path.append('/tmp/nltk_data')
+import nltk
+nltk.download('punkt', download_dir='/tmp')
+nltk.data.path.append('/tmp')
 from nltk.tokenize import sent_tokenize
+
 
 # === Ayarlar ===
 DOC_PATH = "OCR_Ana_Cikti_Guncel.docx"
