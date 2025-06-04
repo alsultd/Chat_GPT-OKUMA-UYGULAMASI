@@ -1,0 +1,8 @@
+streamlit
+python-docx
+gtts
+deep-translator
+SpeechRecognition
+nltk
+
+
