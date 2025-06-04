@@ -71,8 +71,8 @@ def mikrofondan_al(sure=45):
                 winsound.Beep(1000, 500)
             else:
                 st.info("🔔 (Mobil veya desteklenmeyen platform)")
-    except Exception as e:
-        st.info(f"🔕 Bip sesi çalınamadı ({e})")
+        except Exception as e:
+            st.info(f"🔕 Bip sesi çalınamadı ({e})")
 
 #----------------------------------------------------------------
         st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
