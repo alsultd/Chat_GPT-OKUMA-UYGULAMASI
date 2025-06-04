@@ -1,6 +1,6 @@
 streamlit
 python-docx
-deep-translator
 gtts
+deep-translator
 SpeechRecognition
 nltk
