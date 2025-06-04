@@ -70,8 +70,8 @@ def mikrofondan_al(sure=45):
         if platform.system() == "Windows":
             import winsound
             winsound.Beep(1000, 500)
-else:
-    st.info("🔔 (Mobil sürümde bip sesi desteklenmez)")
+        else:
+            st.info("🔔 (Mobil sürümde bip sesi desteklenmez)")
 
         st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
         # sessizliği tolere etmesi için ayar
