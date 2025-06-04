@@ -4,3 +4,4 @@ gtts
 deep-translator
 SpeechRecognition
 nltk
+
