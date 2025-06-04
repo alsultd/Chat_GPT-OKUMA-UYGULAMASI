@@ -12,7 +12,8 @@ from gtts import gTTS
 import speech_recognition as sr
 import nltk
 
-nltk.download('punkt')
+nltk.download('punkt', download_dir='/tmp/nltk_data')
+nltk.data.path.append('/tmp/nltk_data')
 from nltk.tokenize import sent_tokenize
 
 # === Ayarlar ===
