@@ -57,22 +57,23 @@ def get_topic_text(doc_path, topic_no):
     return topics.get(topic_no, "Bu numarada bir konu bulunamadı.")
 
 def mikrofondan_al(sure=45):
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("🎙️ Hazırlanın, 3 saniye içinde bip sesi gelecek...")
-        time.sleep(3)
-
-        st.info("🔔 (Bip sesi yerine bekleme süresi uygulanıyor)")
-
-        st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
-        r.pause_threshold = 1.5
-        r.non_speaking_duration = 1.0
-        audio = r.listen(source, phrase_time_limit=sure)
     try:
-        text = r.recognize_google(audio)
-        return text
-    except:
-        return "(Ses algılanamadı)"
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            st.info("🎙️ Hazırlanın, 3 saniye içinde bip sesi gelecek...")
+            time.sleep(3)
+            st.info("🔔 (Bip sesi yerine bekleme süresi uygulanıyor)")
+            st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
+            r.pause_threshold = 1.5
+            r.non_speaking_duration = 1.0
+            audio = r.listen(source, phrase_time_limit=sure)
+        try:
+            text = r.recognize_google(audio)
+            return text
+        except:
+            return "(Ses algılanamadı)"
+    except Exception as e:
+        return f"(Mikrofon hatası: {e})"
 
 def karsilastir(orijinal, kullanici):
     orij_kelimeler = orijinal.lower().split()
@@ -195,6 +196,7 @@ if "paragraphs" in st.session_state:
 if st.button("🚪 Uygulamadan Çık"):
     temizle_mp3_dosyalari()
     st.success("Geçici ses dosyaları silindi. Uygulamadan güvenle çıkabilirsiniz.")
+
 
 
 
