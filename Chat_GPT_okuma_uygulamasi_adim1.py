@@ -10,13 +10,7 @@ from docx import Document
 from deep_translator import GoogleTranslator
 from gtts import gTTS
 import speech_recognition as sr
-
-import nltk
-nltk.download('punkt', download_dir='/tmp')
-nltk.data.path.append('/tmp')  # Bu satır indirmeden sonra değil, önce gelirse işe yaramaz
-from nltk.tokenize import sent_tokenize
-
-
+import re
 
 # === Ayarlar ===
 DOC_PATH = "OCR_Ana_Cikti_Guncel.docx"
@@ -67,17 +61,9 @@ def mikrofondan_al(sure=45):
     with sr.Microphone() as source:
         st.info("🎙️ Hazırlanın, 3 saniye içinde bip sesi gelecek...")
         time.sleep(3)
-#------------------------------------------
-        try:
-            if platform.system() == "Windows":
-                import winsound
-                winsound.Beep(1000, 500)
-            else:
-                st.info("🔔 (Mobil veya desteklenmeyen platform)")
-        except Exception as e:
-            st.info(f"🔕 Bip sesi çalınamadı ({e})")
 
-#----------------------------------------------------------------
+        st.info("🔔 (Bip sesi yerine bekleme süresi uygulanıyor)")
+
         st.info(f"🎙️ Konuşun... (süre: {sure} saniye)")
         r.pause_threshold = 1.5
         r.non_speaking_duration = 1.0
@@ -103,6 +89,9 @@ def temizle_mp3_dosyalari():
                 os.remove(dosya)
             except:
                 pass
+
+def cumle_bol(paragraf):
+    return re.split(r'(?<=[.!?]) +', paragraf)
 
 # === Arayüz Başlığı ===
 st.title("📘 İngilizce Okuma Uygulaması")
@@ -170,7 +159,7 @@ if "paragraphs" in st.session_state:
 
     # === Cümle bazında çalışma ===
     st.markdown("## 🧩 Cümle Bazlı İşlem")
-    cumleler = sent_tokenize(paragraphs[index])
+    cumleler = cumle_bol(paragraphs[index])
 
     for i, cumle in enumerate(cumleler):
         st.markdown(f"---\n**Cümle {i+1}:** {cumle}")
@@ -206,6 +195,7 @@ if "paragraphs" in st.session_state:
 if st.button("🚪 Uygulamadan Çık"):
     temizle_mp3_dosyalari()
     st.success("Geçici ses dosyaları silindi. Uygulamadan güvenle çıkabilirsiniz.")
+
 
 
 
